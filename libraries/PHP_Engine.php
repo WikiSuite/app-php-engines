@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP 7.0 FPM server class.
+ * PHP engine base class.
  *
  * @category   apps
  * @package    php-engines
@@ -52,16 +52,16 @@ clearos_load_language('php_engines');
 // D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
-use \clearos\apps\php_engines\PHP_Engine as PHP_Engine;
+use \clearos\apps\base\Daemon as Daemon;
 
-clearos_load_library('php_engines/PHP_Engine');
+clearos_load_library('base/Daemon');
 
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * PHP 7.0 FPM server class.
+ * PHP engine base class.
  *
  * @category   apps
  * @package    php-engines
@@ -72,28 +72,26 @@ clearos_load_library('php_engines/PHP_Engine');
  * @link       https://github.com/eglooca/app-php-engines
  */
 
-class PHP70 extends PHP_Engine
+class PHP_Engine extends Daemon
 {
     ///////////////////////////////////////////////////////////////////////////////
-    // C O N S T A N T S
+    // V A R I A B L E S
     ///////////////////////////////////////////////////////////////////////////////
 
-    const FILE_CONFIG = '/etc/opt/rh/rh-php70/php.ini';
+    protected $config = NULL;
 
     ///////////////////////////////////////////////////////////////////////////////
     // M E T H O D S
     ///////////////////////////////////////////////////////////////////////////////
 
     /**
-     * PHP 7.0 FPM constructor.
+     * PHP Engine constructor.
      */
 
-    function __construct()
+    function __construct($engine)
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        $this->config = self::FILE_CONFIG;
-
-        parent::__construct('rh-php70-php-fpm');
+        parent::__construct($engine);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP engines summary view.
+ * PHP engines item view.
  *
  * @category   apps
  * @package    php-engines
@@ -37,58 +37,63 @@ $this->lang->load('base');
 $this->lang->load('php_engines');
 
 ///////////////////////////////////////////////////////////////////////////////
-// Headers
+// Infoboxes
 ///////////////////////////////////////////////////////////////////////////////
 
-$headers = array(
-    lang('base_description'),
-    lang('php_engines_in_use')
-);
+if (!empty($deployed))
+    echo infobox_highlight(lang('php_engines_deployed'), lang('php_engines_deployed_help'));
+
 
 ///////////////////////////////////////////////////////////////////////////////
-// Anchors
+// Form
 ///////////////////////////////////////////////////////////////////////////////
 
+$buttons = array();
+
+if (empty($deployed) && $running_state)
+    $buttons[] = anchor_disable('/app/php_engines/settings/confirm_disable/' . $engine, 'low');
+
+if (!$running_state)
+    $buttons[] = anchor_enable('/app/php_engines/settings/enable/' . $engine, 'low');
+
+$buttons[] = anchor_custom('/app/php_engines/settings', lang('base_return_to_summary'));
+
+echo form_open('php_engines/settings/view');
+echo form_header($title);
+
+echo field_toggle_enable_disable('running_state', $running_state, lang('base_status'), TRUE);
+echo field_button_set($buttons);
+
+echo form_footer();
+echo form_close();
+
+///////////////////////////////////////////////////////////////////////////////
+// Deployed state
+///////////////////////////////////////////////////////////////////////////////
+
+$items = array();
 $anchors = array();
 
-///////////////////////////////////////////////////////////////////////////////
-// Items
-///////////////////////////////////////////////////////////////////////////////
+$headers = array(
+    lang('php_engines_app'),
+    lang('base_details'),
+);
 
-foreach ($services as $service => $details) {
-
-    if ($details['boot_state'])
-        $boot_status = "<span class='clearos-boot-status'><i class='fa fa-check-circle'></i></span>";
-    else
-        $boot_status = "<span class='clearos-boot-status'>-</span>";
-
-    $buttons = button_set(array(
-        anchor_view('/app/php_engines/settings/view/' . $service)
-    ));
-
-    $item['title'] = $service;
-    $item['current_state'] = (bool)$details['running_state'];
-    $item['action'] = $action;
-    $item['anchors'] = $buttons;
+foreach ($state as $certificate) {
+    $item['title'] = $certificate['app_description'];
     $item['details'] = array(
-        $details['description'],
-        $boot_status
+        $certificate['app_description'],
+        $certificate['app_key'],
     );
 
     $items[] = $item;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Summary table
-///////////////////////////////////////////////////////////////////////////////
-
-$options = array (
-    'sort-default-col' => 1,
-    'row-enable-disable' => TRUE,
-);
+$options['no_action'] = TRUE;
+$options['empty_table_message'] = lang('php_engines_not_in_use');
 
 echo summary_table(
-    lang('php_engines_php_engines'),
+    lang('php_engines_deployed'),
     $anchors,
     $headers,
     $items,

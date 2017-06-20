@@ -63,7 +63,7 @@ class Php_engines extends ClearOS_Controller
         // Load views
         //-----------
 
-        $views = array('php_engines/summary');
+        $views = array('php_engines/settings');
 
         $this->page->view_controllers($views, lang('php_engines_app_name'));
     }
