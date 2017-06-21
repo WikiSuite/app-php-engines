@@ -79,11 +79,11 @@ $headers = array(
     lang('base_details'),
 );
 
-foreach ($state as $certificate) {
-    $item['title'] = $certificate['app_description'];
+foreach ($deployed as $engine) {
+    $item['title'] = $engine['app_description'];
     $item['details'] = array(
-        $certificate['app_description'],
-        $certificate['app_key'],
+        $engine['app_description'],
+        $engine['app_key'],
     );
 
     $items[] = $item;

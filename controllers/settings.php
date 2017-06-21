@@ -66,6 +66,7 @@ class Settings extends ClearOS_Controller
 
         try {
             $data['services'] = $this->php_engines->get_services_info();
+            $data['deployed'] = $this->php_engines->get_deployed_state();
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return;
@@ -186,11 +187,11 @@ class Settings extends ClearOS_Controller
         //---------------
 
         try {
+            $data['engine'] = $engine;
             $data['title'] = $this->php_engine->get_title();
             $data['boot_state'] = $this->php_engine->get_boot_state();
             $data['running_state'] = $this->php_engine->get_running_state();
-            $data['engine'] = $engine;
-            $data['deployed'] = [ ];
+            $data['deployed'] = $this->php_engine->get_deployed_state();
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return;

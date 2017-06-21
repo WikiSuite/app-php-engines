@@ -70,6 +70,7 @@ $app['core_requires'] = array(
 $app['core_directory_manifest'] = array(
     '/var/clearos/php_engines' => array(),
     '/var/clearos/php_engines/backup' => array(),
+    '/var/clearos/php_engines/state' => array()
 );
 
 $app['core_file_manifest'] = array(

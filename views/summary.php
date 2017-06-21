@@ -57,7 +57,7 @@ $anchors = array();
 
 foreach ($services as $service => $details) {
 
-    if ($details['boot_state'])
+    if ($deployed[$service])
         $boot_status = "<span class='clearos-boot-status'><i class='fa fa-check-circle'></i></span>";
     else
         $boot_status = "<span class='clearos-boot-status'>-</span>";

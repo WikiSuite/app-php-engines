@@ -55,10 +55,12 @@ clearos_load_language('php_engines');
 use \clearos\apps\base\Daemon as Daemon;
 use \clearos\apps\base\Engine as Engine;
 use \clearos\apps\base\File as File;
+use \clearos\apps\base\Folder as Folder;
 
 clearos_load_library('base/Daemon');
 clearos_load_library('base/Engine');
 clearos_load_library('base/File');
+clearos_load_library('base/Folder');
 
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
@@ -89,6 +91,7 @@ class PHP_Engines extends Engine
     );
 
     const PATH_DAEMONS = '/var/clearos/base/daemon';
+    const PATH_STATE = '/var/clearos/php_engines/state';
 
     ///////////////////////////////////////////////////////////////////////////////
     // M E T H O D S
@@ -152,5 +155,72 @@ class PHP_Engines extends Engine
         }
 
         return $services_info;
+    }
+
+    /**
+     * Returns engine use from state file.
+     *
+     * @return array state
+     * @throws Engine_Exception
+     */
+
+    public function get_deployed_state($engine = NULL)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $folder = new Folder(self::PATH_STATE);
+        $listing = $folder->get_listing();
+
+        foreach ($listing as $config) {
+            if (!preg_match('/\.conf$/', $config))
+                continue;
+
+            $file = new File(self::PATH_STATE . '/' . $config);
+            $line = $file->get_contents_as_array();
+
+            $app_state = json_decode($line[0]);
+            $app_name = preg_replace('/\.conf$/', '', $config);
+
+            foreach ($app_state->engines as $app_key => $details) {
+                $item['app_name'] = $app_name;
+                $item['app_description'] = $app_state->app_description;
+                $item['app_key'] = $app_key;
+                $state[$details][] = $item;
+            }
+        }
+
+        if ($engine)
+            $retval = $state[$engine];
+        else
+            $retval = $state;
+
+        return $retval;
+    }
+
+    /**
+     * Registers a bunch of engines at once.
+     *
+     * @param array $engines engine list
+     * @param string $app_name app basename
+     * @param string $app_description app description
+     *
+     * @return void
+     * @throws Engine_Exception
+     */
+
+    public function register($engines, $app_name, $app_description)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $current['app_description'] = $app_description;
+        $current['engines'] = $engines;
+
+        $file = new File(self::PATH_STATE . '/' . $app_name . '.conf');
+
+        if ($file->exists())
+            $file->delete();
+
+        $file->create('root', 'root', '0644');
+        $file->add_lines(json_encode($current));
     }
 }

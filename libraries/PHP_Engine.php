@@ -53,8 +53,10 @@ clearos_load_language('php_engines');
 ///////////////////////////////////////////////////////////////////////////////
 
 use \clearos\apps\base\Daemon as Daemon;
+use \clearos\apps\php_engines\PHP_Engines as PHP_Engines;
 
 clearos_load_library('base/Daemon');
+clearos_load_library('php_engines/PHP_Engines');
 
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
@@ -79,6 +81,7 @@ class PHP_Engine extends Daemon
     ///////////////////////////////////////////////////////////////////////////////
 
     protected $config = NULL;
+    protected $engine = '';
 
     ///////////////////////////////////////////////////////////////////////////////
     // M E T H O D S
@@ -92,6 +95,24 @@ class PHP_Engine extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
+        $this->engine = $engine;
+
         parent::__construct($engine);
+    }
+
+    /**
+     * Returns engine use from state file.
+     *
+     * @return array state
+     * @throws Engine_Exception
+     */
+
+    public function get_deployed_state()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $php = new PHP_Engines();
+
+        return $php->get_deployed_state($this->engine);
     }
 }
