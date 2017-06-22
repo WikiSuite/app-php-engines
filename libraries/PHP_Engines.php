@@ -85,9 +85,17 @@ class PHP_Engines extends Engine
     ///////////////////////////////////////////////////////////////////////////////
 
     protected $services = array();
+
     protected $supported = array(
-        'rh-php56-php-fpm',
-        'rh-php70-php-fpm'
+        'httpd' => 'PHP 5.4',
+        'rh-php56-php-fpm' => 'PHP 5.6',
+        'rh-php70-php-fpm' => 'PHP 7.0'
+    );
+
+    protected $ports = array(
+        'httpd' => 0,
+        'rh-php56-php-fpm' => 9056,
+        'rh-php70-php-fpm' => 9070,
     );
 
     const PATH_DAEMONS = '/var/clearos/base/daemon';
@@ -117,7 +125,7 @@ class PHP_Engines extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
         
-        foreach ($this->supported as $service) {
+        foreach ($this->supported as $service => $description) {
             $filename = self::PATH_DAEMONS . '/' . $service . '.php';
             $file = new File($filename);
 
@@ -147,7 +155,7 @@ class PHP_Engines extends Engine
             if (! $daemon->is_installed())
                 continue;
 
-            $services_info[$daemon_name]['description'] = $daemon->get_title(); //details['title'];
+            $services_info[$daemon_name]['description'] = $this->supported[$daemon_name];
             $services_info[$daemon_name]['running_state'] = $daemon->get_running_state();
             $services_info[$daemon_name]['boot_state'] = $daemon->get_boot_state();
             $services_info[$daemon_name]['multiservice'] = $daemon->is_multiservice();
@@ -198,6 +206,34 @@ class PHP_Engines extends Engine
     }
 
     /**
+     * Returns list of available engines.
+     *
+     * @return array list of available engines
+     * @throws Engine_Exception
+     */
+
+    public function get_engines()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        return $this->supported;
+    }
+
+    /**
+     * Returns list of ports for the engines.
+     *
+     * @return array list of ports
+     * @throws Engine_Exception
+     */
+
+    public function get_ports()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        return $this->ports;
+    }
+
+    /**
      * Registers a bunch of engines at once.
      *
      * @param array $engines engine list
@@ -222,5 +258,33 @@ class PHP_Engines extends Engine
 
         $file->create('root', 'root', '0644');
         $file->add_lines(json_encode($current));
+
+        // Make sure the desired engine is running
+        foreach ($engines as $engine) {
+            $daemon = new Daemon($engine);
+
+            if (!$daemon->get_running_state())
+                $daemon->set_running_state(TRUE);
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    // V A L I D A T I O N   M E T H O D S
+    ///////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Validation routine for engines.
+     *
+     * @param string $engine PHP engine
+     *
+     * @return string error message if engine is not supported
+     */
+
+    function validate_engine($engine)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        if (!array_key_exists($engine, $this->supported))
+            return lang('php_engines_invalid_engine');
     }
 }

@@ -115,4 +115,22 @@ class PHP_Engine extends Daemon
 
         return $php->get_deployed_state($this->engine);
     }
+
+    /**
+     * Returns engine description.
+     *
+     * @return string version
+     * @throws Engine_Exception
+     */
+
+    public function get_php_description()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $php = new PHP_Engines();
+
+        $engines = $php->get_engines();
+
+        return $engines[$this->engine];
+    }
 }

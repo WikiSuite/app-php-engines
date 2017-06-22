@@ -97,7 +97,7 @@ class Settings extends ClearOS_Controller
         //---------------
 
         try {
-            $title = $this->php_engine->get_title();
+            $title = $this->php_engine->get_php_description();
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return;
@@ -188,7 +188,7 @@ class Settings extends ClearOS_Controller
 
         try {
             $data['engine'] = $engine;
-            $data['title'] = $this->php_engine->get_title();
+            $data['title'] = $this->php_engine->get_php_description();
             $data['boot_state'] = $this->php_engine->get_boot_state();
             $data['running_state'] = $this->php_engine->get_running_state();
             $data['deployed'] = $this->php_engine->get_deployed_state();

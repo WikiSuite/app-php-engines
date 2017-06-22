@@ -10,3 +10,4 @@ $lang['php_engines_app'] = 'App Name';
 $lang['php_engines_deployed'] = 'Deployed';
 $lang['php_engines_deployed_help'] = 'This PHP engine is in use, so disable functions are not available.';
 $lang['php_engines_confirm_disable'] = 'Are you sure you want to disable the following engine:';
+$lang['php_engines_invalid_engine'] = 'PHP engine is invalid.';
