@@ -26,6 +26,8 @@ Requires: app-date-core
 Requires: app-events-core
 Requires: app-php-engines-core
 Requires: app-php-core >= 1:2.3.2
+Requires: app-web-server-core >= 1:2.3.3
+Requires: app-flexshare-core >= 1:2.3.7
 Requires: rh-php56-php-bcmath
 Requires: rh-php56-php-cli
 Requires: rh-php56-php-common

@@ -39,6 +39,8 @@ $app['core_requires'] = array(
     'app-events-core',
     'app-php-engines-core',
     'app-php-core >= 1:2.3.2',
+    'app-web-server-core >= 1:2.3.3',
+    'app-flexshare-core >= 1:2.3.7',
     'rh-php56-php-bcmath',
     'rh-php56-php-cli',
     'rh-php56-php-common',
