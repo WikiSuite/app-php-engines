@@ -191,6 +191,7 @@ class Settings extends ClearOS_Controller
             $data['title'] = $this->php_engine->get_php_description();
             $data['boot_state'] = $this->php_engine->get_boot_state();
             $data['running_state'] = $this->php_engine->get_running_state();
+            $data['builtin_engine'] = ($engine == 'httpd') ? TRUE : FALSE;
             $data['deployed'] = $this->php_engine->get_deployed_state();
         } catch (Exception $e) {
             $this->page->view_exception($e);

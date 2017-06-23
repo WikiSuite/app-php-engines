@@ -50,7 +50,7 @@ if (!empty($deployed))
 
 $buttons = array();
 
-if (empty($deployed) && $running_state)
+if (empty($deployed) && $running_state && !$builtin_engine)
     $buttons[] = anchor_disable('/app/php_engines/settings/confirm_disable/' . $engine, 'low');
 
 if (!$running_state)

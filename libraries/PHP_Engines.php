@@ -284,6 +284,9 @@ class PHP_Engines extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
+        if (empty($engine))
+            return;
+
         if (!array_key_exists($engine, $this->supported))
             return lang('php_engines_invalid_engine');
     }
