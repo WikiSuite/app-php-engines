@@ -153,7 +153,7 @@ class PHP_Engines extends Engine
 
         $php = new PHP();
 
-        $php_timezone = $php->get_detected_timezone();
+        $php_timezone = $php->get_detected_timezone('php_engines');
 
         foreach ($this->configs as $engine => $config) {
             $file = new File($config);
