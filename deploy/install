@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/clearos/apps/php_engines/deploy/trigger_flexshares
