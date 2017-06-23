@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'php_engines';
-$app['version'] = '1.0.0';
+$app['version'] = '1.0.1';
 $app['release'] = '1';
 $app['vendor'] = 'WikiSuite';
 $app['packager'] = 'eGloo';
@@ -34,8 +34,10 @@ $app['controllers']['policy']['title'] = lang('base_app_policy');
 /////////////////////////////////////////////////////////////////////////////
 
 $app['core_requires'] = array(
+    'app-date-core',
+    'app-events-core',
     'app-php-engines-core',
-    'app-php-core',
+    'app-php-core >= 1:2.3.2',
     'rh-php56-php-bcmath',
     'rh-php56-php-cli',
     'rh-php56-php-common',
@@ -75,7 +77,16 @@ $app['core_directory_manifest'] = array(
 
 $app['core_file_manifest'] = array(
     'rh-php56-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php56-php-fpm.php'),
-    'rh-php70-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php70-php-fpm.php')
+    'rh-php70-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php70-php-fpm.php'),
+    'date-event'=> array(
+        'target' => '/var/clearos/events/date/php_engines',
+        'mode' => '0755'
+    ),
+    'php_engines.conf' => array (
+        'target' => '/etc/clearos/php_engines.conf',
+        'config' => TRUE,
+        'config_params' => 'noreplace',
+    ),
 );
 
 $app['delete_dependency'] = array(

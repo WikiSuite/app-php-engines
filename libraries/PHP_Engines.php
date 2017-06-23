@@ -52,15 +52,32 @@ clearos_load_language('php_engines');
 // D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
+// Classes
+//--------
+
 use \clearos\apps\base\Daemon as Daemon;
 use \clearos\apps\base\Engine as Engine;
 use \clearos\apps\base\File as File;
 use \clearos\apps\base\Folder as Folder;
+use \clearos\apps\php\PHP as PHP;
 
 clearos_load_library('base/Daemon');
 clearos_load_library('base/Engine');
 clearos_load_library('base/File');
 clearos_load_library('base/Folder');
+clearos_load_library('php/PHP');
+
+// Exceptions
+//-----------
+
+use \Exception as Exception;
+use \clearos\apps\base\Engine_Exception as Engine_Exception;
+use \clearos\apps\base\File_No_Match_Exception as File_No_Match_Exception;
+use \clearos\apps\base\File_Not_Found_Exception as File_Not_Found_Exception;
+
+clearos_load_library('base/Engine_Exception');
+clearos_load_library('base/File_No_Match_Exception');
+clearos_load_library('base/File_Not_Found_Exception');
 
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
@@ -98,6 +115,12 @@ class PHP_Engines extends Engine
         'rh-php70-php-fpm' => 9070,
     );
 
+    protected $configs = array(
+        'rh-php56-php-fpm' => '/etc/opt/rh/rh-php56/php.ini',
+        'rh-php70-php-fpm' => '/etc/opt/rh/rh-php70/php.ini',
+    );
+
+    const FILE_APP_CONFIG = '/etc/clearos/php_engines.conf';
     const PATH_DAEMONS = '/var/clearos/base/daemon';
     const PATH_STATE = '/var/clearos/php_engines/state';
 
@@ -112,6 +135,68 @@ class PHP_Engines extends Engine
     function __construct()
     {
         clearos_profile(__METHOD__, __LINE__);
+    }
+
+    /**
+     * Auto configures PHP Engines.
+     *
+     * @return void
+     * @throws Engine_Exception
+     */
+
+    public function auto_configure()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        if (! $this->get_auto_configure_state())
+            return;
+
+        $php = new PHP();
+
+        $php_timezone = $php->get_detected_timezone();
+
+        foreach ($this->configs as $engine => $config) {
+            $file = new File($config);
+
+            $replaced = $file->replace_lines('/^date.timezone\s*=/', "date.timezone = $php_timezone\n");
+
+            if ($replaced == 0) {
+                $replaced = $file->replace_lines('/^;\s*date.timezone\s*=/', "date.timezone = $php_timezone\n");
+
+                if ($replaced == 0)
+                    $file->add_lines_after("date.timezone = $php_timezone\n", "/^\[Date\]/");
+            }
+
+            $daemon = new Daemon($engine);
+            $daemon->reset(TRUE);
+        }
+    }
+
+    /**
+     * Returns auto-configure state.
+     *
+     * @return boolean state of auto-configure mode
+     */
+
+    public function get_auto_configure_state()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        try {
+            $file = new File(self::FILE_APP_CONFIG);
+            $value = $file->lookup_value("/^auto_configure\s*=\s*/i");
+        } catch (File_Not_Found_Exception $e) {
+            return FALSE;
+        } catch (File_No_Match_Exception $e) {
+            return FALSE;
+        } catch (Exception $e) {
+            throw new Engine_Exception($e->get_message());
+        }
+
+        if (preg_match('/yes/i', $value))
+            return TRUE;
+        else
+            return FALSE;
     }
 
     /**
