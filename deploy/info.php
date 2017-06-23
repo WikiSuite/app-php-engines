@@ -34,6 +34,7 @@ $app['controllers']['policy']['title'] = lang('base_app_policy');
 /////////////////////////////////////////////////////////////////////////////
 
 $app['core_requires'] = array(
+    'app-base-core >= 1:2.3.40',
     'app-date-core',
     'app-events-core',
     'app-php-engines-core',

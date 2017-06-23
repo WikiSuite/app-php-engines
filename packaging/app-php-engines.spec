@@ -21,6 +21,7 @@ Summary: PHP Engines - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
+Requires: app-base-core >= 1:2.3.40
 Requires: app-date-core
 Requires: app-events-core
 Requires: app-php-engines-core
