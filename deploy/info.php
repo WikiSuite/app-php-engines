@@ -49,6 +49,7 @@ $app['core_requires'] = array(
     'rh-php56-php-intl',
     'rh-php56-php-ldap',
     'rh-php56-php-mbstring',
+    'rh-php56-php-pecl-memcache',
     'rh-php56-php-mysqlnd',
     'rh-php56-php-opcache',
     'rh-php56-php-pdo',
