@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'php_engines';
-$app['version'] = '1.0.1';
+$app['version'] = '1.0.2';
 $app['release'] = '1';
 $app['vendor'] = 'WikiSuite';
 $app['packager'] = 'eGloo';
@@ -39,8 +39,8 @@ $app['core_requires'] = array(
     'app-events-core',
     'app-php-engines-core',
     'app-php-core >= 1:2.3.2',
-    'app-web-server-core >= 1:2.3.3',
-    'app-flexshare-core >= 1:2.3.7',
+    'app-web-server-core >= 1:2.4.0',
+    'app-flexshare-core >= 1:2.4.0',
     'rh-php56-php-bcmath',
     'rh-php56-php-cli',
     'rh-php56-php-common',

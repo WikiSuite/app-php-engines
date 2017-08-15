@@ -1,7 +1,7 @@
 
 Name: app-php-engines
 Epoch: 1
-Version: 1.0.1
+Version: 1.0.2
 Release: 1%{dist}
 Summary: PHP Engines
 License: GPLv3
@@ -26,8 +26,8 @@ Requires: app-date-core
 Requires: app-events-core
 Requires: app-php-engines-core
 Requires: app-php-core >= 1:2.3.2
-Requires: app-web-server-core >= 1:2.3.3
-Requires: app-flexshare-core >= 1:2.3.7
+Requires: app-web-server-core >= 1:2.4.0
+Requires: app-flexshare-core >= 1:2.4.0
 Requires: rh-php56-php-bcmath
 Requires: rh-php56-php-cli
 Requires: rh-php56-php-common
@@ -36,6 +36,7 @@ Requires: rh-php56-php-gd
 Requires: rh-php56-php-intl
 Requires: rh-php56-php-ldap
 Requires: rh-php56-php-mbstring
+Requires: rh-php56-php-pecl-memcache
 Requires: rh-php56-php-mysqlnd
 Requires: rh-php56-php-opcache
 Requires: rh-php56-php-pdo
