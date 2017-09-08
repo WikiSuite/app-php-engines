@@ -1,7 +1,7 @@
 
 Name: app-php-engines
 Epoch: 1
-Version: 1.0.2
+Version: 1.0.3
 Release: 1%{dist}
 Summary: PHP Engines
 License: GPLv3
@@ -12,6 +12,7 @@ Source: %{name}-%{version}.tar.gz
 Buildarch: noarch
 Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
+Requires: app-web-server
 
 %description
 With PHP Engines, an administrator can select the PHP version to run inside each web server virtual host.

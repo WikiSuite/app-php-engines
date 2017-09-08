@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'php_engines';
-$app['version'] = '1.0.2';
+$app['version'] = '1.0.3';
 $app['release'] = '1';
 $app['vendor'] = 'WikiSuite';
 $app['packager'] = 'eGloo';
@@ -32,6 +32,10 @@ $app['controllers']['policy']['title'] = lang('base_app_policy');
 /////////////////////////////////////////////////////////////////////////////
 // Packaging
 /////////////////////////////////////////////////////////////////////////////
+
+$app['requires'] = array(
+    'app-web-server'
+);
 
 $app['core_requires'] = array(
     'app-base-core >= 1:2.3.40',
