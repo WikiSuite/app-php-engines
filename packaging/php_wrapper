@@ -1,0 +1,50 @@
+#!/bin/bash
+# Companion script to wrap multiple versions of PHP in Linux
+PENV=".phpenv"
+
+args=()
+for arg in "$@";
+do
+	args+=("$arg")
+done
+
+# Check if there is file called .phpenv in any of the folders, from CWD to the root
+# Content should be 56 (/opt/rh/rh-php56) or 70 (/opt/rh/rh-php70)
+TESTDIR=$(pwd)
+VER=""
+while :
+do
+	#echo $TESTDIR
+	if [ -f $TESTDIR/$PENV ]
+	then
+		VER=$(cat $TESTDIR/$PENV | grep '[0-9]' | head -1)
+		break
+	fi
+	if [ "_$TESTDIR" = "_/" ]
+	then
+		break
+	fi
+	TESTDIR=$(dirname $TESTDIR)
+done
+
+#echo "/opt/rh/rh-php$VER/root/usr/bin/php"
+if [ -f "/opt/rh/rh-php$VER/root/usr/bin/php" ] ; then
+	cmd=(exec "/opt/rh/rh-php$VER/root/usr/bin/php" "${args[@]}")
+	"${cmd[@]}"
+fi
+
+# Fallback to execute the oldest (relying on SO sorting) installed if any
+if [ -d /opt/rh/ ] ; then
+	for DIR in /opt/rh/rh-php*
+	do
+		#echo "$DIR/root/usr/bin/php"
+		if [ -f "$DIR/root/usr/bin/php" ] ; then
+			cmd=(exec "$DIR/root/usr/bin/php" "${args[@]}")
+			"${cmd[@]}"
+		fi
+	done
+fi
+
+# Fallback to the version of the SO
+cmd=(exec "/usr/bin/php" "${args[@]}")
+"${cmd[@]}"

@@ -28,7 +28,8 @@ Requires: app-events-core
 Requires: app-php-engines-core
 Requires: app-php-core >= 1:2.3.2
 Requires: app-web-server-core >= 1:2.4.0
-Requires: app-flexshare-core >= 1:2.4.0
+Requires: app-flexshare-core >= 1:2.4.10
+Requires: clearos-base >= 7.0.2
 Requires: rh-php56-php-bcmath
 Requires: rh-php56-php-cli
 Requires: rh-php56-php-common
@@ -78,6 +79,7 @@ install -d -m 0755 %{buildroot}/var/clearos/php_engines/backup
 install -d -m 0755 %{buildroot}/var/clearos/php_engines/state
 install -D -m 0755 packaging/date-event %{buildroot}/var/clearos/events/date/php_engines
 install -D -m 0644 packaging/php_engines.conf %{buildroot}/etc/clearos/php_engines.conf
+install -D -m 0755 packaging/php_wrapper %{buildroot}/usr/clearos/bin/php
 install -D -m 0644 packaging/rh-php56-php-fpm.php %{buildroot}/var/clearos/base/daemon/rh-php56-php-fpm.php
 install -D -m 0644 packaging/rh-php70-php-fpm.php %{buildroot}/var/clearos/base/daemon/rh-php70-php-fpm.php
 
@@ -127,5 +129,6 @@ exit 0
 /usr/clearos/apps/php_engines/libraries
 /var/clearos/events/date/php_engines
 %config(noreplace) /etc/clearos/php_engines.conf
+/usr/clearos/bin/php
 /var/clearos/base/daemon/rh-php56-php-fpm.php
 /var/clearos/base/daemon/rh-php70-php-fpm.php

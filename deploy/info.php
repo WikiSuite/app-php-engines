@@ -44,7 +44,8 @@ $app['core_requires'] = array(
     'app-php-engines-core',
     'app-php-core >= 1:2.3.2',
     'app-web-server-core >= 1:2.4.0',
-    'app-flexshare-core >= 1:2.4.0',
+    'app-flexshare-core >= 1:2.4.10',
+    'clearos-base >= 7.0.2',
     'rh-php56-php-bcmath',
     'rh-php56-php-cli',
     'rh-php56-php-common',
@@ -94,6 +95,10 @@ $app['core_file_manifest'] = array(
         'target' => '/etc/clearos/php_engines.conf',
         'config' => TRUE,
         'config_params' => 'noreplace',
+    ),
+    'php_wrapper'=> array(
+        'target' => '/usr/clearos/bin/php',
+        'mode' => '0755'
     ),
 );
 
