@@ -34,16 +34,16 @@ if [ -f "/opt/rh/rh-php$VER/root/usr/bin/php" ] ; then
 fi
 
 # Fallback to execute the oldest (relying on SO sorting) installed if any
-if [ -d /opt/rh/ ] ; then
-	for DIR in /opt/rh/rh-php*
-	do
-		#echo "$DIR/root/usr/bin/php"
-		if [ -f "$DIR/root/usr/bin/php" ] ; then
-			cmd=(exec "$DIR/root/usr/bin/php" "${args[@]}")
-			"${cmd[@]}"
-		fi
-	done
-fi
+#if [ -d /opt/rh/ ] ; then
+#	for DIR in /opt/rh/rh-php*
+#	do
+#		#echo "$DIR/root/usr/bin/php"
+#		if [ -f "$DIR/root/usr/bin/php" ] ; then
+#			cmd=(exec "$DIR/root/usr/bin/php" "${args[@]}")
+#			"${cmd[@]}"
+#		fi
+#	done
+#fi
 
 # Fallback to the version of the SO
 cmd=(exec "/usr/bin/php" "${args[@]}")
