@@ -115,6 +115,11 @@ class PHP_Engines extends Engine
         'rh-php70-php-fpm' => 9070,
     );
 
+    protected $version_codes = array(
+        'rh-php56-php-fpm' => 56,
+        'rh-php70-php-fpm' => 70,
+    );
+
     protected $configs = array(
         'rh-php56-php-fpm' => '/etc/opt/rh/rh-php56/php.ini',
         'rh-php70-php-fpm' => '/etc/opt/rh/rh-php70/php.ini',
@@ -316,6 +321,20 @@ class PHP_Engines extends Engine
         clearos_profile(__METHOD__, __LINE__);
 
         return $this->ports;
+    }
+
+    /**
+     * Returns list of version codes.
+     *
+     * @return array list of version codes
+     * @throws Engine_Exception
+     */
+
+    public function get_version_codes()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        return $this->version_codes;
     }
 
     /**
