@@ -12,6 +12,12 @@ $app['packager'] = 'eGloo';
 $app['license'] = 'GPLv3';
 $app['license_core'] = 'LGPLv3';
 $app['description'] = lang('php_engines_app_description');
+$app['powered_by'] = array(
+    'vendor' => array(
+        'name' => 'PHP',
+        'url' => 'http://php.net',
+    ),
+);
 
 /////////////////////////////////////////////////////////////////////////////
 // App name and categories
