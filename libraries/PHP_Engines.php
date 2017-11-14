@@ -369,6 +369,9 @@ class PHP_Engines extends Engine
 
             if (!$daemon->get_running_state())
                 $daemon->set_running_state(TRUE);
+
+            if (!$daemon->get_boot_state())
+                $daemon->set_boot_state(TRUE);
         }
     }
 
