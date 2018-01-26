@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'php_engines';
-$app['version'] = '1.0.5';
+$app['version'] = '1.0.6';
 $app['release'] = '1';
 $app['vendor'] = 'WikiSuite';
 $app['packager'] = 'eGloo';
@@ -105,6 +105,11 @@ $app['core_file_manifest'] = array(
     'php_wrapper'=> array(
         'target' => '/usr/clearos/bin/php',
         'mode' => '0755'
+    ),
+    'www_path.conf' => array(
+        'target' => [ '/etc/opt/rh/rh-php56/php-fpm.d/www_path.conf', '/etc/opt/rh/rh-php70/php-fpm.d/www_path.conf' ],
+        'config' => TRUE,
+        'config_params' => 'noreplace',
     ),
 );
 
