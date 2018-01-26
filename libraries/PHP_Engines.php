@@ -106,23 +106,27 @@ class PHP_Engines extends Engine
     protected $supported = array(
         'httpd' => 'PHP 5.4',
         'rh-php56-php-fpm' => 'PHP 5.6',
-        'rh-php70-php-fpm' => 'PHP 7.0'
+        'rh-php70-php-fpm' => 'PHP 7.0',
+        'rh-php71-php-fpm' => 'PHP 7.1'
     );
 
     protected $ports = array(
         'httpd' => 0,
         'rh-php56-php-fpm' => 9056,
         'rh-php70-php-fpm' => 9070,
+        'rh-php71-php-fpm' => 9071
     );
 
     protected $version_codes = array(
         'rh-php56-php-fpm' => 56,
         'rh-php70-php-fpm' => 70,
+        'rh-php71-php-fpm' => 71
     );
 
     protected $configs = array(
         'rh-php56-php-fpm' => '/etc/opt/rh/rh-php56/php.ini',
         'rh-php70-php-fpm' => '/etc/opt/rh/rh-php70/php.ini',
+        'rh-php71-php-fpm' => '/etc/opt/rh/rh-php71/php.ini'
     );
 
     const FILE_APP_CONFIG = '/etc/clearos/php_engines.conf';

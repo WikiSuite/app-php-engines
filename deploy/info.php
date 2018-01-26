@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'php_engines';
-$app['version'] = '1.0.6';
+$app['version'] = '1.1.0';
 $app['release'] = '1';
 $app['vendor'] = 'WikiSuite';
 $app['packager'] = 'eGloo';
@@ -82,6 +82,24 @@ $app['core_requires'] = array(
     'rh-php70-php-pear',
     'rh-php70-php-soap',
     'rh-php70-php-xml',
+    'rh-php71-php-bcmath',
+    'rh-php71-php-cli',
+    'rh-php71-php-common',
+    'rh-php71-php-fpm',
+    'rh-php71-php-gd',
+    'rh-php71-php-gmp',
+    'rh-php71-php-intl',
+    'rh-php71-php-json',
+    'rh-php71-php-ldap',
+    'rh-php71-php-mbstring',
+    'rh-php71-php-mysqlnd',
+    'rh-php71-php-opcache',
+    'rh-php71-php-pdo',
+    'rh-php71-php-pear',
+    'rh-php71-php-process',
+    'rh-php71-php-soap',
+    'rh-php71-php-xml',
+    'rh-php71-php-zip',
 );
 
 $app['core_directory_manifest'] = array(
@@ -93,6 +111,7 @@ $app['core_directory_manifest'] = array(
 $app['core_file_manifest'] = array(
     'rh-php56-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php56-php-fpm.php'),
     'rh-php70-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php70-php-fpm.php'),
+    'rh-php71-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php71-php-fpm.php'),
     'date-event'=> array(
         'target' => '/var/clearos/events/date/php_engines',
         'mode' => '0755'
@@ -107,7 +126,11 @@ $app['core_file_manifest'] = array(
         'mode' => '0755'
     ),
     'www_path.conf' => array(
-        'target' => [ '/etc/opt/rh/rh-php56/php-fpm.d/www_path.conf', '/etc/opt/rh/rh-php70/php-fpm.d/www_path.conf' ],
+        'target' => [
+            '/etc/opt/rh/rh-php56/php-fpm.d/www_path.conf',
+            '/etc/opt/rh/rh-php70/php-fpm.d/www_path.conf',
+            '/etc/opt/rh/rh-php71/php-fpm.d/www_path.conf'
+        ],
         'config' => TRUE,
         'config_params' => 'noreplace',
     ),

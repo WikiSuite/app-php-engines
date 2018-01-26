@@ -1,7 +1,7 @@
 
 Name: app-php-engines
 Epoch: 1
-Version: 1.0.6
+Version: 1.1.0
 Release: 1%{dist}
 Summary: PHP Engines
 License: GPLv3
@@ -60,6 +60,24 @@ Requires: rh-php70-php-pdo
 Requires: rh-php70-php-pear
 Requires: rh-php70-php-soap
 Requires: rh-php70-php-xml
+Requires: rh-php71-php-bcmath
+Requires: rh-php71-php-cli
+Requires: rh-php71-php-common
+Requires: rh-php71-php-fpm
+Requires: rh-php71-php-gd
+Requires: rh-php71-php-gmp
+Requires: rh-php71-php-intl
+Requires: rh-php71-php-json
+Requires: rh-php71-php-ldap
+Requires: rh-php71-php-mbstring
+Requires: rh-php71-php-mysqlnd
+Requires: rh-php71-php-opcache
+Requires: rh-php71-php-pdo
+Requires: rh-php71-php-pear
+Requires: rh-php71-php-process
+Requires: rh-php71-php-soap
+Requires: rh-php71-php-xml
+Requires: rh-php71-php-zip
 
 %description core
 With PHP Engines, an administrator can select the PHP version to run inside each web server virtual host.
@@ -82,8 +100,10 @@ install -D -m 0644 packaging/php_engines.conf %{buildroot}/etc/clearos/php_engin
 install -D -m 0755 packaging/php_wrapper %{buildroot}/usr/clearos/bin/php
 install -D -m 0644 packaging/rh-php56-php-fpm.php %{buildroot}/var/clearos/base/daemon/rh-php56-php-fpm.php
 install -D -m 0644 packaging/rh-php70-php-fpm.php %{buildroot}/var/clearos/base/daemon/rh-php70-php-fpm.php
+install -D -m 0644 packaging/rh-php71-php-fpm.php %{buildroot}/var/clearos/base/daemon/rh-php71-php-fpm.php
 install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php56/php-fpm.d/www_path.conf
 install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php70/php-fpm.d/www_path.conf
+install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php71/php-fpm.d/www_path.conf
 
 %post
 logger -p local6.notice -t installer 'app-php-engines - installing'
@@ -134,5 +154,7 @@ exit 0
 /usr/clearos/bin/php
 /var/clearos/base/daemon/rh-php56-php-fpm.php
 /var/clearos/base/daemon/rh-php70-php-fpm.php
+/var/clearos/base/daemon/rh-php71-php-fpm.php
 %config(noreplace) /etc/opt/rh/rh-php56/php-fpm.d/www_path.conf
 %config(noreplace) /etc/opt/rh/rh-php70/php-fpm.d/www_path.conf
+%config(noreplace) /etc/opt/rh/rh-php71/php-fpm.d/www_path.conf
