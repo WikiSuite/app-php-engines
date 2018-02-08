@@ -1,7 +1,7 @@
 
 Name: app-php-engines
 Epoch: 1
-Version: 1.1.0
+Version: 1.1.1
 Release: 1%{dist}
 Summary: PHP Engines
 License: GPLv3
