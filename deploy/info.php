@@ -44,7 +44,7 @@ $app['requires'] = array(
 );
 
 $app['core_requires'] = array(
-    'app-base-core >= 1:2.3.40',
+    'app-base-core >= 1:2.4.19',
     'app-date-core',
     'app-events-core',
     'app-php-engines-core',
