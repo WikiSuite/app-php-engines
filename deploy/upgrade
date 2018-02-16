@@ -17,3 +17,6 @@ if [ -n "$CHECK" ]; then
     logger -p local6.notice -t installer "app-php-engines-core - updating listen port for PHP 7.1"
     sed -i -e 's/^listen[[:space:]]*=.*/listen = 127.0.0.1:9071/' /etc/opt/rh/rh-php71/php-fpm.d/www.conf
 fi
+
+# Set timezone in php.ini files
+/var/clearos/events/date/php_engines

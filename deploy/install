@@ -2,6 +2,3 @@
 
 # Trigger PHP engine registration
 /usr/clearos/apps/php_engines/deploy/trigger_flexshares
-
-# Set timezone in php.ini files
-/var/clearos/events/date/php_engines
