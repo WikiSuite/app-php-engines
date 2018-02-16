@@ -1,7 +1,7 @@
 
 Name: app-php-engines
 Epoch: 1
-Version: 1.1.2
+Version: 1.1.3
 Release: 1%{dist}
 Summary: PHP Engines
 License: GPLv3
@@ -95,6 +95,7 @@ cp -r * %{buildroot}/usr/clearos/apps/php_engines/
 install -d -m 0755 %{buildroot}/var/clearos/php_engines
 install -d -m 0755 %{buildroot}/var/clearos/php_engines/backup
 install -d -m 0755 %{buildroot}/var/clearos/php_engines/state
+install -D -m 0644 packaging/apache-php_engines_path.conf %{buildroot}/etc/httpd/conf.d/php_engines_path.conf
 install -D -m 0755 packaging/date-event %{buildroot}/var/clearos/events/date/php_engines
 install -D -m 0644 packaging/php_engines.conf %{buildroot}/etc/clearos/php_engines.conf
 install -D -m 0755 packaging/php_wrapper %{buildroot}/usr/clearos/bin/php
@@ -104,7 +105,6 @@ install -D -m 0644 packaging/rh-php71-php-fpm.php %{buildroot}/var/clearos/base/
 install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php56/php-fpm.d/www_path.conf
 install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php70/php-fpm.d/www_path.conf
 install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php71/php-fpm.d/www_path.conf
-install -D -m 0644 packaging/apache-php_engines_path.conf %{buildroot}/etc/httpd/conf.d/php_engines_path.conf
 
 %post
 logger -p local6.notice -t installer 'app-php-engines - installing'
@@ -150,6 +150,7 @@ exit 0
 /usr/clearos/apps/php_engines/deploy
 /usr/clearos/apps/php_engines/language
 /usr/clearos/apps/php_engines/libraries
+%config(noreplace) /etc/httpd/conf.d/php_engines_path.conf
 /var/clearos/events/date/php_engines
 %config(noreplace) /etc/clearos/php_engines.conf
 /usr/clearos/bin/php
@@ -159,4 +160,3 @@ exit 0
 %config(noreplace) /etc/opt/rh/rh-php56/php-fpm.d/www_path.conf
 %config(noreplace) /etc/opt/rh/rh-php70/php-fpm.d/www_path.conf
 %config(noreplace) /etc/opt/rh/rh-php71/php-fpm.d/www_path.conf
-%config(noreplace) /etc/httpd/conf.d/php_engines_path.conf

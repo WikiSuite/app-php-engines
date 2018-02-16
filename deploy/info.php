@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'php_engines';
-$app['version'] = '1.1.2';
+$app['version'] = '1.1.3';
 $app['release'] = '1';
 $app['vendor'] = 'WikiSuite';
 $app['packager'] = 'eGloo';
@@ -112,6 +112,11 @@ $app['core_file_manifest'] = array(
     'rh-php56-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php56-php-fpm.php'),
     'rh-php70-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php70-php-fpm.php'),
     'rh-php71-php-fpm.php' => array('target' => '/var/clearos/base/daemon/rh-php71-php-fpm.php'),
+    'apache-php_engines_path.conf' => array(
+        'target' => '/etc/httpd/conf.d/php_engines_path.conf',
+        'config' => TRUE,
+        'config_params' => 'noreplace'
+    ),
     'date-event'=> array(
         'target' => '/var/clearos/events/date/php_engines',
         'mode' => '0755'
