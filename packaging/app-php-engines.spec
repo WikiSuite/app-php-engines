@@ -104,6 +104,7 @@ install -D -m 0644 packaging/rh-php71-php-fpm.php %{buildroot}/var/clearos/base/
 install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php56/php-fpm.d/www_path.conf
 install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php70/php-fpm.d/www_path.conf
 install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php71/php-fpm.d/www_path.conf
+install -D -m 0644 packaging/apache-php_engines_path.conf %{buildroot}/etc/httpd/conf.d/php_engines_path.conf
 
 %post
 logger -p local6.notice -t installer 'app-php-engines - installing'
@@ -158,3 +159,4 @@ exit 0
 %config(noreplace) /etc/opt/rh/rh-php56/php-fpm.d/www_path.conf
 %config(noreplace) /etc/opt/rh/rh-php70/php-fpm.d/www_path.conf
 %config(noreplace) /etc/opt/rh/rh-php71/php-fpm.d/www_path.conf
+%config(noreplace) /etc/httpd/conf.d/php_engines_path.conf
