@@ -1,7 +1,7 @@
 
 Name: app-php-engines
 Epoch: 1
-Version: 1.1.5
+Version: 1.1.6
 Release: 1%{dist}
 Summary: PHP Engines
 License: GPLv3
@@ -102,7 +102,9 @@ install -D -m 0755 packaging/php_wrapper %{buildroot}/usr/clearos/bin/php
 install -D -m 0644 packaging/rh-php56-php-fpm.php %{buildroot}/var/clearos/base/daemon/rh-php56-php-fpm.php
 install -D -m 0644 packaging/rh-php70-php-fpm.php %{buildroot}/var/clearos/base/daemon/rh-php70-php-fpm.php
 install -D -m 0644 packaging/rh-php71-php-fpm.php %{buildroot}/var/clearos/base/daemon/rh-php71-php-fpm.php
-install -D -m 0644 packaging/www_path.conf %{buildroot}Array
+install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php56/php-fpm.d/www_path.conf
+install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php70/php-fpm.d/www_path.conf
+install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php71/php-fpm.d/www_path.conf
 
 %post
 logger -p local6.notice -t installer 'app-php-engines - installing'
@@ -155,4 +157,6 @@ exit 0
 /var/clearos/base/daemon/rh-php56-php-fpm.php
 /var/clearos/base/daemon/rh-php70-php-fpm.php
 /var/clearos/base/daemon/rh-php71-php-fpm.php
-%config(noreplace) Array
+%config(noreplace) /etc/opt/rh/rh-php56/php-fpm.d/www_path.conf
+%config(noreplace) /etc/opt/rh/rh-php70/php-fpm.d/www_path.conf
+%config(noreplace) /etc/opt/rh/rh-php71/php-fpm.d/www_path.conf
