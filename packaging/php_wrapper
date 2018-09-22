@@ -33,7 +33,7 @@ if [ -f "/opt/rh/rh-php$VER/root/usr/bin/php" ] ; then
 	"${cmd[@]}"
 fi
 
-# Fallback to execute the oldest (relying on SO sorting) installed if any
+# Fallback to execute the oldest (relying on operating system sorting) installed if any
 #if [ -d /opt/rh/ ] ; then
 #	for DIR in /opt/rh/rh-php*
 #	do
@@ -45,6 +45,6 @@ fi
 #	done
 #fi
 
-# Fallback to the version of the SO
+# Fallback to the version of the operating system
 cmd=(exec "/usr/bin/php" "${args[@]}")
 "${cmd[@]}"
