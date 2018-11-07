@@ -92,6 +92,9 @@ This package provides the core API and libraries.
 mkdir -p -m 755 %{buildroot}/usr/clearos/apps/php_engines
 cp -r * %{buildroot}/usr/clearos/apps/php_engines/
 rm -f %{buildroot}/usr/clearos/apps/php_engines/README.md
+rm -f %{buildroot}/usr/clearos/apps/php_engines/packaging/LICENSE-API.txt
+rm -f %{buildroot}/usr/clearos/apps/php_engines/packaging/LICENSE.txt
+
 install -d -m 0755 %{buildroot}/var/clearos/php_engines
 install -d -m 0755 %{buildroot}/var/clearos/php_engines/backup
 install -d -m 0755 %{buildroot}/var/clearos/php_engines/state
@@ -110,7 +113,7 @@ install -D -m 0644 packaging/www_path.conf %{buildroot}/etc/opt/rh/rh-php71/php-
 logger -p local6.notice -t installer 'app-php-engines - installing'
 
 %post core
-logger -p local6.notice -t installer 'app-php-engines-core - installing'
+logger -p local6.notice -t installer 'app-php-engines-api - installing'
 
 if [ $1 -eq 1 ]; then
     [ -x /usr/clearos/apps/php_engines/deploy/install ] && /usr/clearos/apps/php_engines/deploy/install
@@ -127,7 +130,7 @@ fi
 
 %preun core
 if [ $1 -eq 0 ]; then
-    logger -p local6.notice -t installer 'app-php-engines-core - uninstalling'
+    logger -p local6.notice -t installer 'app-php-engines-api - uninstalling'
     [ -x /usr/clearos/apps/php_engines/deploy/uninstall ] && /usr/clearos/apps/php_engines/deploy/uninstall
 fi
 
@@ -135,6 +138,7 @@ exit 0
 
 %files
 %defattr(-,root,root)
+%doc packaging/LICENSE.txt
 /usr/clearos/apps/php_engines/controllers
 /usr/clearos/apps/php_engines/htdocs
 /usr/clearos/apps/php_engines/views
@@ -142,8 +146,8 @@ exit 0
 %files core
 %defattr(-,root,root)
 %doc README.md
+%doc packaging/LICENSE-API.txt
 %exclude /usr/clearos/apps/php_engines/packaging
-%doc README.md
 %exclude /usr/clearos/apps/php_engines/unify.json
 %dir /usr/clearos/apps/php_engines
 %dir /var/clearos/php_engines
