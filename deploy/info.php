@@ -5,8 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'php_engines';
-$app['version'] = '1.1.7';
-$app['release'] = '1';
+$app['version'] = '1.1.8';
 $app['vendor'] = 'WikiSuite';
 $app['packager'] = 'eGloo';
 $app['license'] = 'GPLv3';

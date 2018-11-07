@@ -1,11 +1,11 @@
 
 Name: app-php-engines
 Epoch: 1
-Version: 1.1.7
+Version: 1.1.8
 Release: 1%{dist}
 Summary: PHP Engines
 License: GPLv3
-Group: ClearOS/Apps
+Group: Applications/Apps
 Packager: eGloo
 Vendor: WikiSuite
 Source: %{name}-%{version}.tar.gz
@@ -18,9 +18,9 @@ Requires: app-web-server
 With PHP Engines, an administrator can select the PHP version to run inside each web server virtual host.
 
 %package core
-Summary: PHP Engines - Core
+Summary: PHP Engines - API
 License: LGPLv3
-Group: ClearOS/Libraries
+Group: Applications/API
 Requires: app-base-core
 Requires: app-base-core >= 1:2.4.19
 Requires: app-date-core
@@ -91,7 +91,7 @@ This package provides the core API and libraries.
 %install
 mkdir -p -m 755 %{buildroot}/usr/clearos/apps/php_engines
 cp -r * %{buildroot}/usr/clearos/apps/php_engines/
-
+rm -f %{buildroot}/usr/clearos/apps/php_engines/README.md
 install -d -m 0755 %{buildroot}/var/clearos/php_engines
 install -d -m 0755 %{buildroot}/var/clearos/php_engines/backup
 install -d -m 0755 %{buildroot}/var/clearos/php_engines/state
@@ -141,7 +141,9 @@ exit 0
 
 %files core
 %defattr(-,root,root)
+%doc README.md
 %exclude /usr/clearos/apps/php_engines/packaging
+%doc README.md
 %exclude /usr/clearos/apps/php_engines/unify.json
 %dir /usr/clearos/apps/php_engines
 %dir /var/clearos/php_engines
